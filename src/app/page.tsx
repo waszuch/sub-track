@@ -3,6 +3,8 @@
 import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
 import { SubscriptionCard } from '@/components/SubscriptionCard';
 import { AddSubscriptionDialog } from '@/components/AddSubscriptionDialog';
+import { CostSummary } from '@/components/CostSummary';
+import { CostByCategory } from '@/components/CostByCategory';
 
 export default function Home() {
   const { subscriptions, addSubscription, removeSubscription } =
@@ -31,14 +33,24 @@ export default function Home() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {subscriptions.map((subscription) => (
-              <SubscriptionCard
-                key={subscription.id}
-                subscription={subscription}
-                onDelete={removeSubscription}
-              />
-            ))}
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CostSummary subscriptions={subscriptions} />
+              <CostByCategory subscriptions={subscriptions} />
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Your Subscriptions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {subscriptions.map((subscription) => (
+                  <SubscriptionCard
+                    key={subscription.id}
+                    subscription={subscription}
+                    onDelete={removeSubscription}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
