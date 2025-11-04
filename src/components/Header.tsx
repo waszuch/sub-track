@@ -2,6 +2,8 @@
 
 import { Subscription } from '@/types/subscription';
 import { CreditCard } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { SettingsDialog } from '@/components/SettingsDialog';
 
 interface HeaderProps {
   subscriptions: Subscription[];
@@ -33,9 +35,15 @@ export function Header({ subscriptions }: HeaderProps) {
               </p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-muted-foreground">Total Monthly</p>
-            <p className="text-3xl font-bold">${totalCost.toFixed(2)}</p>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Total Monthly</p>
+              <p className="text-3xl font-bold">${totalCost.toFixed(2)}</p>
+            </div>
+            <div className="flex gap-2">
+              <ThemeToggle />
+              <SettingsDialog />
+            </div>
           </div>
         </div>
       </div>

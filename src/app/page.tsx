@@ -30,7 +30,7 @@ export default function Home() {
               No subscriptions yet
             </p>
             <p className="text-sm text-muted-foreground">
-              Click "Add Subscription" to get started
+              Click &quot;Add Subscription&quot; to get started
             </p>
           </motion.div>
         ) : (

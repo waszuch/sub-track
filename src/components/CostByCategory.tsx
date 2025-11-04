@@ -72,9 +72,6 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percent }) =>
-                `${name}: ${(percent * 100).toFixed(0)}%`
-              }
               outerRadius={80}
               fill="#8884d8"
               dataKey="value"
@@ -87,7 +84,11 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
               ))}
             </Pie>
             <Tooltip
-              formatter={(value: number) => `$${value.toFixed(2)}`}
+              formatter={(value: number, name: string) => {
+                const total = chartData.reduce((sum, item) => sum + item.value, 0);
+                const percent = ((value / total) * 100).toFixed(1);
+                return [`$${value.toFixed(2)} (${percent}%)`, name];
+              }}
             />
             <Legend />
           </PieChart>
