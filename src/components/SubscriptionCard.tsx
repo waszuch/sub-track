@@ -3,6 +3,7 @@
 import { Subscription } from '@/types/subscription';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -13,15 +14,15 @@ interface SubscriptionCardProps {
 
 export function SubscriptionCard({ subscription, onDelete }: SubscriptionCardProps) {
   return (
-    <Card className="relative">
+    <Card className="relative transition-all hover:shadow-lg hover:scale-[1.02] duration-200">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
-          <div>
+          <div className="flex-1">
             <CardTitle className="text-lg">{subscription.name}</CardTitle>
             {subscription.category && (
-              <p className="text-sm text-muted-foreground mt-1">
+              <Badge variant="secondary" className="mt-2">
                 {subscription.category}
-              </p>
+              </Badge>
             )}
           </div>
           <Button
