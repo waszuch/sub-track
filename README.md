@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SubTrack
 
-## Getting Started
+Personal subscription tracker - Next.js 15, TypeScript, Zustand, TanStack Query, shadcn/ui, Recharts and Framer Motion.
 
-First, run the development server:
+## Features
+
+💳 Add, edit, and delete subscriptions (name, price, currency, category, payment date)
+
+📊 Visual cost analytics with pie charts by category
+
+💱 Multi-currency support (USD, EUR, GBP, PLN)
+
+🌓 Dark/light mode toggle
+
+📥 Import/export data as JSON
+
+💾 LocalStorage persistence
+
+🎭 Smooth animations and transitions
+
+📱 Fully responsive design
+
+## Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open http://localhost:3000
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next.js 15 (App Router)
 
-## Deploy on Vercel
+TypeScript
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tailwind CSS
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+shadcn/ui
+
+Zustand (with persist)
+
+TanStack Query
+
+Recharts
+
+Framer Motion
+
+Lucide Icons
+
+next-themes
