@@ -1,37 +1,19 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTRPC } from '@/trpc/client';
 import type { SubscriptionInput } from '@/types/subscription';
 
 export const useSubscriptions = () => {
   const trpc = useTRPC();
-  const queryClient = useQueryClient();
   
   const { data: subscriptions = [], isLoading } = useQuery(
     trpc.subscriptions.getAll.queryOptions()
   );
   
-  const createMutation = useMutation({
-    ...trpc.subscriptions.create.mutationOptions(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: trpc.subscriptions.getAll.queryKey() });
-    },
-  });
-
-  const updateMutation = useMutation({
-    ...trpc.subscriptions.update.mutationOptions(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: trpc.subscriptions.getAll.queryKey() });
-    },
-  });
-
-  const deleteMutation = useMutation({
-    ...trpc.subscriptions.delete.mutationOptions(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: trpc.subscriptions.getAll.queryKey() });
-    },
-  });
+  const createMutation = useMutation(trpc.subscriptions.create.mutationOptions());
+  const updateMutation = useMutation(trpc.subscriptions.update.mutationOptions());
+  const deleteMutation = useMutation(trpc.subscriptions.delete.mutationOptions());
 
   return {
     subscriptions,
