@@ -1,6 +1,6 @@
 'use client';
 
-import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
+import { useSubscriptions } from '@/hooks/useSubscriptions';
 import { SubscriptionCard } from '@/components/SubscriptionCard';
 import { AddSubscriptionDialog } from '@/components/AddSubscriptionDialog';
 import { CostSummary } from '@/components/CostSummary';
@@ -9,8 +9,16 @@ import { Header } from '@/components/Header';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  const { subscriptions, addSubscription, removeSubscription } =
-    useSubscriptionStore();
+  const { subscriptions, addSubscription, removeSubscription, isLoading } =
+    useSubscriptions();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

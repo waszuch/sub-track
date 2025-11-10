@@ -12,18 +12,19 @@ export function CostSummary({ subscriptions }: CostSummaryProps) {
   const totalCost = subscriptions
     .filter((sub) => sub.active)
     .reduce((sum, sub) => {
-      if (sub.currency === 'USD') return sum + sub.priceMonthly;
-      if (sub.currency === 'EUR') return sum + sub.priceMonthly * 1.1;
-      if (sub.currency === 'GBP') return sum + sub.priceMonthly * 1.27;
-      if (sub.currency === 'PLN') return sum + sub.priceMonthly * 0.25;
-      return sum + sub.priceMonthly;
+      const price = parseFloat(sub.priceMonthly);
+      if (sub.currency === 'USD') return sum + price;
+      if (sub.currency === 'EUR') return sum + price * 1.1;
+      if (sub.currency === 'GBP') return sum + price * 1.27;
+      if (sub.currency === 'PLN') return sum + price * 0.25;
+      return sum + price;
     }, 0);
 
   const currencies = subscriptions.reduce((acc, sub) => {
     if (!acc[sub.currency]) {
       acc[sub.currency] = 0;
     }
-    acc[sub.currency] += sub.priceMonthly;
+    acc[sub.currency] += parseFloat(sub.priceMonthly);
     return acc;
   }, {} as Record<string, number>);
 

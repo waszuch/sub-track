@@ -35,7 +35,7 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
       if (!acc[category]) {
         acc[category] = 0;
       }
-      acc[category] += sub.priceMonthly;
+      acc[category] += parseFloat(sub.priceMonthly);
       return acc;
     }, {} as Record<string, number>);
 

@@ -20,10 +20,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Plus } from 'lucide-react';
-import { Subscription } from '@/types/subscription';
+import { SubscriptionInput } from '@/types/subscription';
 
 interface AddSubscriptionDialogProps {
-  onAdd: (subscription: Omit<Subscription, 'id' | 'createdAt'>) => void;
+  onAdd: (subscription: SubscriptionInput) => void;
 }
 
 const CATEGORIES = [
@@ -59,10 +59,10 @@ export function AddSubscriptionDialog({ onAdd }: AddSubscriptionDialogProps) {
 
     onAdd({
       name: formData.name,
-      priceMonthly: parseFloat(formData.priceMonthly),
+      priceMonthly: formData.priceMonthly,
       currency: formData.currency,
       category: formData.category || undefined,
-      nextPaymentDate: formData.nextPaymentDate || undefined,
+      nextPaymentDate: formData.nextPaymentDate ? new Date(formData.nextPaymentDate + 'T00:00:00') : undefined,
       active: true,
     });
 

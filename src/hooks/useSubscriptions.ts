@@ -1,60 +1,40 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
-import { Subscription } from '@/types/subscription';
+'use client';
+
+import { trpc } from '@/trpc/client';
+import type { SubscriptionInput } from '@/types/subscription';
 
 export const useSubscriptions = () => {
-  const queryClient = useQueryClient();
-  const { subscriptions, addSubscription, updateSubscription, removeSubscription } =
-    useSubscriptionStore();
-
-  const subscriptionsQuery = useQuery({
-    queryKey: ['subscriptions'],
-    queryFn: () => Promise.resolve(subscriptions),
-    initialData: subscriptions,
-  });
-
-  const addMutation = useMutation({
-    mutationFn: async (subscription: Omit<Subscription, 'id' | 'createdAt'>) => {
-      addSubscription(subscription);
-      return subscription;
-    },
+  const utils = trpc.useUtils();
+  const { data: subscriptions = [], isLoading } = trpc.subscriptions.getAll.useQuery();
+  
+  const createMutation = trpc.subscriptions.create.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscriptions'] });
+      utils.subscriptions.getAll.invalidate();
     },
   });
 
-  const updateMutation = useMutation({
-    mutationFn: async ({
-      id,
-      data,
-    }: {
-      id: string;
-      data: Partial<Subscription>;
-    }) => {
-      updateSubscription(id, data);
-      return { id, data };
-    },
+  const updateMutation = trpc.subscriptions.update.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscriptions'] });
+      utils.subscriptions.getAll.invalidate();
     },
   });
 
-  const removeMutation = useMutation({
-    mutationFn: async (id: string) => {
-      removeSubscription(id);
-      return id;
-    },
+  const deleteMutation = trpc.subscriptions.delete.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['subscriptions'] });
+      utils.subscriptions.getAll.invalidate();
     },
   });
 
   return {
     subscriptions,
-    isLoading: subscriptionsQuery.isLoading,
-    addSubscription: addMutation.mutate,
-    updateSubscription: updateMutation.mutate,
-    removeSubscription: removeMutation.mutate,
+    isLoading,
+    addSubscription: (data: SubscriptionInput) => createMutation.mutate(data),
+    updateSubscription: (id: string, data: Partial<SubscriptionInput>) => 
+      updateMutation.mutate({ id, data }),
+    removeSubscription: (id: string) => deleteMutation.mutate({ id }),
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
   };
 };
 
