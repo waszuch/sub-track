@@ -1,37 +1,34 @@
 # SubTrack
 
-Personal subscription tracker - Next.js 15, TypeScript, Zustand, TanStack Query, shadcn/ui, Recharts and Framer Motion.
+Personal subscription tracker with authentication and database persistence. Built with Next.js 15, TypeScript, tRPC, Drizzle ORM, BetterAuth, and shadcn/ui.
 
 ## Features
 
-💳 Add, edit, and delete subscriptions (name, price, currency, category, payment date)
+Add, edit, and delete subscriptions (name, price, currency, category, payment date)
 
-📊 Visual cost analytics with pie charts by category
+Visual cost analytics with pie charts by category
 
-💱 Multi-currency support (USD, EUR, GBP, PLN)
+Multi-currency support (USD, EUR, GBP, PLN)
 
-🌓 Dark/light mode toggle
+User authentication (email/password)
 
-📥 Import/export data as JSON
+Database persistence with Postgres
 
-💾 LocalStorage persistence
+Dark/light mode toggle
 
-🎭 Smooth animations and transitions
+Import/export data as JSON
 
-📱 Fully responsive design
+Form validation with TanStack Form and Zod
 
-## Start
+Smooth animations and transitions
+
+Fully responsive design
+
+
+## Development
 
 ```bash
-pnpm install
 pnpm dev
-```
-
-or
-
-```bash
-npm install
-npm run dev
 ```
 
 Open http://localhost:3000
@@ -49,13 +46,21 @@ Next.js 15 (App Router)
 
 TypeScript
 
+tRPC with TanStack Query
+
+Drizzle ORM
+
+BetterAuth
+
+Postgres (Supabase)
+
+TanStack Form
+
+Zod
+
 Tailwind CSS
 
 shadcn/ui
-
-Zustand (with persist)
-
-TanStack Query
 
 Recharts
 
