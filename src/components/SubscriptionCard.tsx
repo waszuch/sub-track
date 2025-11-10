@@ -16,11 +16,11 @@ export function SubscriptionCard({ subscription, onDelete }: SubscriptionCardPro
   return (
     <Card className="relative transition-all hover:shadow-lg hover:scale-[1.02] duration-200">
       <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <CardTitle className="text-lg">{subscription.name}</CardTitle>
+        <div className="flex justify-between items-start gap-2">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-base md:text-lg truncate">{subscription.name}</CardTitle>
             {subscription.category && (
-              <Badge variant="secondary" className="mt-2">
+              <Badge variant="secondary" className="mt-2 text-xs">
                 {subscription.category}
               </Badge>
             )}
@@ -29,24 +29,24 @@ export function SubscriptionCard({ subscription, onDelete }: SubscriptionCardPro
             variant="ghost"
             size="icon"
             onClick={() => onDelete(subscription.id)}
-            className="h-8 w-8 text-muted-foreground hover:text-destructive"
+            className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
           >
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-between items-end">
+        <div className="flex justify-between items-end gap-3">
           <div>
-            <p className="text-2xl font-bold">
+            <p className="text-xl md:text-2xl font-bold">
               {subscription.priceMonthly} {subscription.currency}
             </p>
             <p className="text-xs text-muted-foreground">per month</p>
           </div>
           {subscription.nextPaymentDate && (
             <div className="text-right">
-              <p className="text-sm text-muted-foreground">Next payment</p>
-              <p className="text-sm font-medium">
+              <p className="text-xs md:text-sm text-muted-foreground">Next payment</p>
+              <p className="text-xs md:text-sm font-medium">
                 {format(new Date(subscription.nextPaymentDate), 'MMM dd, yyyy')}
               </p>
             </div>

@@ -48,10 +48,10 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Cost by Category</CardTitle>
+          <CardTitle className="text-sm md:text-base">Cost by Category</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center h-[300px] text-sm text-muted-foreground">
+          <div className="flex items-center justify-center h-[200px] md:h-[300px] text-sm text-muted-foreground">
             No data available
           </div>
         </CardContent>
@@ -62,10 +62,10 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Cost by Category</CardTitle>
+        <CardTitle className="text-sm md:text-base">Cost by Category</CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={250} className="md:!h-[300px]">
           <PieChart>
             <Pie
               data={chartData}
@@ -90,7 +90,7 @@ export function CostByCategory({ subscriptions }: CostByCategoryProps) {
                 return [`$${value.toFixed(2)} (${percent}%)`, name];
               }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: '12px' }} />
           </PieChart>
         </ResponsiveContainer>
       </CardContent>

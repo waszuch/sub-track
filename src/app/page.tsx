@@ -34,8 +34,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header subscriptions={subscriptions} />
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="flex justify-end mb-8">
+      <div className="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
+        <div className="flex justify-center md:justify-end mb-6 md:mb-8">
           <AddSubscriptionDialog onAdd={addSubscription} />
         </div>
 
@@ -43,9 +43,9 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center justify-center py-20 text-center"
+            className="flex flex-col items-center justify-center py-12 md:py-20 text-center"
           >
-            <p className="text-xl text-muted-foreground mb-4">
+            <p className="text-lg md:text-xl text-muted-foreground mb-4">
               No subscriptions yet
             </p>
             <p className="text-sm text-muted-foreground">
@@ -53,20 +53,20 @@ export default function Home() {
             </p>
           </motion.div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
             >
               <CostSummary subscriptions={subscriptions} />
               <CostByCategory subscriptions={subscriptions} />
             </motion.div>
 
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Your Subscriptions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <h2 className="text-xl md:text-2xl font-semibold mb-4">Your Subscriptions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 <AnimatePresence mode="popLayout">
                   {subscriptions.map((subscription) => (
                     <motion.div

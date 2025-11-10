@@ -34,31 +34,43 @@ export function Header({ subscriptions }: HeaderProps) {
 
   return (
     <div className="border-b bg-card">
-      <div className="container mx-auto px-4 py-6 max-w-6xl">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-              <CreditCard className="h-6 w-6 text-primary-foreground" />
+      <div className="container mx-auto px-4 py-4 md:py-6 max-w-6xl">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center justify-between md:justify-start gap-3">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
+                <CreditCard className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold tracking-tight">SubTrack</h1>
+                <p className="text-xs md:text-sm text-muted-foreground">
+                  Track your subscriptions
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">SubTrack</h1>
-              <p className="text-sm text-muted-foreground">
-                Track your subscriptions
-              </p>
+            <div className="flex md:hidden gap-2">
+              <ThemeToggle />
+              <SettingsDialog />
+              {session?.user && (
+                <Button variant="outline" size="icon" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">Total Monthly</p>
-              <p className="text-3xl font-bold">${totalCost.toFixed(2)}</p>
+
+          <div className="flex items-center justify-between md:justify-end gap-4">
+            <div className="text-left md:text-right">
+              <p className="text-xs md:text-sm text-muted-foreground">Total Monthly</p>
+              <p className="text-2xl md:text-3xl font-bold">${totalCost.toFixed(2)}</p>
             </div>
             {session?.user && (
-              <div className="text-right">
+              <div className="hidden lg:block text-right">
                 <p className="text-sm font-medium">{session.user.name}</p>
                 <p className="text-xs text-muted-foreground">{session.user.email}</p>
               </div>
             )}
-            <div className="flex gap-2">
+            <div className="hidden md:flex gap-2">
               <ThemeToggle />
               <SettingsDialog />
               {session?.user && (
@@ -69,6 +81,12 @@ export function Header({ subscriptions }: HeaderProps) {
             </div>
           </div>
         </div>
+        {session?.user && (
+          <div className="mt-3 pt-3 border-t lg:hidden">
+            <p className="text-sm font-medium">{session.user.name}</p>
+            <p className="text-xs text-muted-foreground">{session.user.email}</p>
+          </div>
+        )}
       </div>
     </div>
   );
