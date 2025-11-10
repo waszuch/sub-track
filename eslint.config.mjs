@@ -20,6 +20,11 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      "react/no-children-prop": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

@@ -50,7 +50,15 @@ export const subscriptionsRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
-      const updateData: Record<string, any> = {
+      const updateData: {
+        updatedAt: Date;
+        name?: string;
+        priceMonthly?: string;
+        currency?: string;
+        category?: string;
+        nextPaymentDate?: Date;
+        active?: boolean;
+      } = {
         updatedAt: new Date(),
       };
       

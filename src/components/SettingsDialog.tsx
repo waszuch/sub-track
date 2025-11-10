@@ -11,12 +11,12 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Settings, Download, Upload } from 'lucide-react';
-import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
 import { Subscription } from '@/types/subscription';
+import { useSubscriptions } from '@/hooks/useSubscriptions';
 
 export function SettingsDialog() {
   const [open, setOpen] = useState(false);
-  const { subscriptions, addSubscription } = useSubscriptionStore();
+  const { subscriptions, addSubscription } = useSubscriptions();
 
   const handleExport = () => {
     const dataStr = JSON.stringify(subscriptions, null, 2);
@@ -43,10 +43,14 @@ export function SettingsDialog() {
           importedData.forEach((sub) => {
             addSubscription({
               name: sub.name,
-              priceMonthly: sub.priceMonthly,
+              priceMonthly: typeof sub.priceMonthly === 'string' 
+                ? sub.priceMonthly 
+                : String(sub.priceMonthly),
               currency: sub.currency,
-              category: sub.category,
-              nextPaymentDate: sub.nextPaymentDate,
+              category: sub.category || undefined,
+              nextPaymentDate: sub.nextPaymentDate 
+                ? new Date(sub.nextPaymentDate) 
+                : undefined,
               active: sub.active,
             });
           });
