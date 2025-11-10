@@ -7,12 +7,23 @@ import { CostSummary } from '@/components/CostSummary';
 import { CostByCategory } from '@/components/CostByCategory';
 import { Header } from '@/components/Header';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSession } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const { data: session, isPending } = useSession();
+  const router = useRouter();
   const { subscriptions, addSubscription, removeSubscription, isLoading } =
     useSubscriptions();
 
-  if (isLoading) {
+  useEffect(() => {
+    if (!isPending && !session?.user) {
+      router.push('/login');
+    }
+  }, [session, isPending, router]);
+
+  if (isPending || isLoading || !session?.user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground">Loading...</p>
