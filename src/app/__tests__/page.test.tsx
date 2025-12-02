@@ -49,12 +49,12 @@ describe('Home Page', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(useRouter).mockReturnValue({ push: mockPush } as any);
+    vi.mocked(useRouter).mockReturnValue({ push: mockPush } as ReturnType<typeof useRouter>);
     vi.mocked(useSession).mockReturnValue({
       data: mockSession,
       isPending: false,
       error: null,
-    } as any);
+    } as ReturnType<typeof useSession>);
     vi.mocked(useSubscriptions).mockReturnValue({
       subscriptions: mockSubscriptions,
       isLoading: false,
@@ -72,7 +72,7 @@ describe('Home Page', () => {
       data: null,
       isPending: false,
       error: null,
-    } as any);
+    } as ReturnType<typeof useSession>);
 
     render(<Home />);
 
@@ -86,7 +86,7 @@ describe('Home Page', () => {
       data: null,
       isPending: true,
       error: null,
-    } as any);
+    } as ReturnType<typeof useSession>);
 
     render(<Home />);
     expect(screen.getByText('Loading...')).toBeInTheDocument();

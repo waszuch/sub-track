@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 vi.mock('next-themes');
 
 const mockSetTheme = vi.fn();
-const mockUseTheme = useTheme as any;
+const mockUseTheme = useTheme as unknown as ReturnType<typeof vi.fn>;
 
 describe('ThemeToggle', () => {
   beforeEach(() => {

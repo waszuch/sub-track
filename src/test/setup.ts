@@ -32,25 +32,35 @@ vi.mock('next-themes', () => ({
 }));
 
 // Mock framer-motion to avoid animation issues in tests
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: (props: any) => {
-      const { children, ...rest } = props;
-      return { type: 'div', props: rest, children };
+vi.mock('framer-motion', async () => {
+  const React = await import('react');
+  return {
+    motion: {
+      div: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => 
+        React.createElement('div', props, children),
     },
-  },
-  AnimatePresence: (props: any) => props.children,
-}));
+    AnimatePresence: ({ children }: { children?: React.ReactNode }) => children,
+  };
+});
 
 // Mock recharts
-vi.mock('recharts', () => ({
-  PieChart: (props: any) => ({ type: 'PieChart', props }),
-  Pie: (props: any) => ({ type: 'Pie', props }),
-  Cell: (props: any) => ({ type: 'Cell', props }),
-  ResponsiveContainer: (props: any) => ({ type: 'ResponsiveContainer', props }),
-  Legend: (props: any) => ({ type: 'Legend', props }),
-  Tooltip: (props: any) => ({ type: 'Tooltip', props }),
-}));
+vi.mock('recharts', async () => {
+  const React = await import('react');
+  return {
+    PieChart: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'pie-chart', ...props }, children),
+    Pie: (props: { [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'pie', ...props }),
+    Cell: (props: { [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'cell', ...props }),
+    ResponsiveContainer: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'responsive-container', ...props }, children),
+    Legend: (props: { [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'legend', ...props }),
+    Tooltip: (props: { [key: string]: unknown }) =>
+      React.createElement('div', { 'data-testid': 'tooltip', ...props }),
+  };
+});
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {

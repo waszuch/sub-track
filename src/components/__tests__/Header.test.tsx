@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../Header';
 import type { Subscription } from '@/types/subscription';
-import { useSession, signOut } from '@/lib/auth-client';
+import { useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 
 vi.mock('@/lib/auth-client');
@@ -64,8 +64,8 @@ describe('Header', () => {
       data: mockSession,
       isPending: false,
       error: null,
-    } as any);
-    vi.mocked(useRouter).mockReturnValue(mockRouter as any);
+    } as ReturnType<typeof useSession>);
+    vi.mocked(useRouter).mockReturnValue(mockRouter as ReturnType<typeof useRouter>);
   });
 
   it('should render SubTrack title', () => {

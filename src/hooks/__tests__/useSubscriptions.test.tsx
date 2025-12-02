@@ -3,10 +3,14 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useSubscriptions } from '../useSubscriptions';
 import { useTRPC } from '@/trpc/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 
 vi.mock('@/trpc/client');
 
-// Create a wrapper for React Query
+interface WrapperProps {
+  children: ReactNode;
+}
+
 const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -14,9 +18,11 @@ const createWrapper = () => {
       mutations: { retry: false },
     },
   });
-  return ({ children }: { children: React.ReactNode }) => (
+  const Wrapper = ({ children }: WrapperProps) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
+  Wrapper.displayName = 'TestWrapper';
+  return Wrapper;
 };
 
 describe('useSubscriptions', () => {
@@ -62,7 +68,7 @@ describe('useSubscriptions', () => {
           mutationOptions: mockMutationOptions,
         },
       },
-    } as any);
+    } as unknown as ReturnType<typeof useTRPC>);
   });
 
   it('should return subscriptions from query', async () => {
@@ -135,4 +141,5 @@ describe('useSubscriptions', () => {
     });
   });
 });
+
 

@@ -14,7 +14,7 @@ describe('RegisterPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(useRouter).mockReturnValue({ push: mockPush } as any);
+    vi.mocked(useRouter).mockReturnValue({ push: mockPush } as ReturnType<typeof useRouter>);
     vi.mocked(signUp).email = mockSignUp.email;
   });
 

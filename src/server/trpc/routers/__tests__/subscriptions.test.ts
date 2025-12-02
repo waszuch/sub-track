@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
 import { subscriptionsRouter } from '../subscriptions';
-import { db } from '@/lib/db';
 
 vi.mock('@/lib/db', () => ({
   db: {
