@@ -40,6 +40,47 @@ pnpm build
 pnpm start
 ```
 
+## Testing
+
+### Unit Tests (Vitest)
+
+Run unit tests for components, hooks, and utilities:
+
+```bash
+# Run all unit tests
+pnpm test
+
+# Run tests in UI mode
+pnpm test:ui
+
+# Run tests with coverage
+pnpm test:coverage
+```
+
+### E2E Tests (Playwright)
+
+Run end-to-end tests that simulate real user interactions:
+
+```bash
+# Run all E2E tests
+pnpm test:e2e
+
+# Run tests in UI mode (recommended for development)
+pnpm test:e2e:ui
+
+# Run tests with visible browser
+pnpm test:e2e:headed
+
+# Debug tests
+pnpm test:e2e:debug
+```
+
+**Note:** E2E tests require a test user account. Set up credentials:
+- Email: `test@example.com`
+- Password: `Test123!@#`
+
+See [tests/e2e/README.md](tests/e2e/README.md) for more details.
+
 ## Tech Stack
 
 Next.js 15 (App Router)
@@ -69,3 +110,13 @@ Framer Motion
 Lucide Icons
 
 next-themes
+
+## Testing Tools
+
+Vitest (Unit Testing)
+
+@testing-library/react
+
+@testing-library/jest-dom
+
+Playwright (E2E Testing)
